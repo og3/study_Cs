@@ -1,5 +1,4 @@
 using System;
-
 class Myapp
 {
     static void Main()
