@@ -133,7 +133,84 @@ switch(signal) {
         Console.WriteLine("入力ミス");
         break;
 ```
+- whileとdo while
+```
+var i = 1;
 
+while(i < 10){
+    Console.WriteLine(i);
+    i++;
+}
+---
+var i = 100;
+do {
+    Console.WriteLine(i);
+    i++;
+} while(i < 10);
+こちらはdoの処理を実行した後でwhileの条件判定を行う
+```
+- for 
+```
+for(int i = 0; i < 10; i++){
+    Console.WriteLine(i);
+}
+// continue それ以降の処理を中止して次のループへ
+// break ループ自体を抜ける
+```
+- 配列
+```
+var score = new [] {10, 20, 30};
+
+for(int i = 0; i < score.Length; i++){
+  Console.WriteLine(score[i]);
+}
+---
+foreach(int i in score){
+  Console.WriteLine(i);
+}
+```
+- メソッド
+```
+返り値を文字列で返すメソッド
+static string Sayhi() {
+	"hi";
+}
+処理が１行しかない場合はこう書ける
+static string Sayhi() => "hi";
+
+引数を持つ場合
+static void SayHi(string name, int age = 20 ) => Console.WriteLine($"hi {name} {age}");
+static void Main() {
+    SayHi("Tom", 30); // tom 30
+    SayHi("Bob"); // bob 23
+    SayHi(age: 26, name: "Steve"); // steve 26
+}
+```
+- クラスとインスタンスとクラスメソッド
+```
+
+class User {
+    public string name = "name";
+    public void SayHi() {
+        // 変数が自明の場合はthisは省略して良い
+        // Console.WriteLine($"hi {this.name}");
+        Console.WriteLine($"hi {name}");
+    }
+}
+呼び出し：
+class MyApp {
+
+  static void Main() {
+    User user = new User(); // インスタンス
+    Console.WriteLine(user.name); // me
+    user.SayHi(); // hi! me
+    user.name = "おれ";
+    user.SayHi(); // hi! taguchi
+  }
+
+}
+```
 
 # メモ
 - class名、メソッド名の頭文字は大文字にする
+- Main関数は必要
