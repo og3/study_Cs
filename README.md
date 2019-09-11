@@ -110,5 +110,30 @@ var score = int.Parse(Console.ReadLine());
 ```
 Console.WriteLine((score > 80) ? "Great" : "so so ...");
 ```
+- switch
+```
+// 文字列の入力受付
+var signal = Console.ReadLine();
+
+switch(signal) {
+    case "red":
+        Console.WriteLine("止まれ");
+        // 処理の終了
+        break;
+    // 条件が２つある場合（演算子でできないのか？）
+    case "blue":
+    case "green":
+        Console.WriteLine("進め");
+        break;
+    case "yellow":
+        Console.WriteLine("注意");
+        break;
+    // 上記に該当しない場合
+    default:
+        Console.WriteLine("入力ミス");
+        break;
+```
+
+
 # メモ
 - class名、メソッド名の頭文字は大文字にする
