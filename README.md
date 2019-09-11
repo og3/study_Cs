@@ -21,11 +21,22 @@ Copyright (C) 2002-2014 Novell, Inc, Xamarin Inc and Contributors. www.mono-proj
 	Suspend:       hybrid
 	GC:            sgen (concurrent by default)
 ```
-参考：https://qiita.com/matsuda_sinsuke/items/76068f4c396887459803
+参考：https://qiita.com/matsuda_sinsuke/items/76068f4c396887459803  
 
-- VScodeを入れてみる
-ファイルの実行があまりにだるいので。。
+# VScodeのインストール
+- コードの補完がないといろいろ書くC#はきつい  
+- 実行も手元でできたほうが勉強は捗る
+- VScodeとC#パッケージを入れてみる  
 参考：https://qiita.com/shuhey/items/38ce475b3c0c90862d2c
+
+# コンパイルと実行
+- コンパイル
+```
+msc .csのファイル名
+＝＞これでexeファイルが作られる
+mono .exeのファイル名
+＝＞これで結果が返ってくる
+```
 
 # 文法
 - hello world
@@ -66,16 +77,140 @@ bool flag = true;
 勝手に判断してくれるやつ（型推論）
 var i = 5; <=intと解釈してくれる
 ```
+- 文字列中の式展開
+```
+var name = "taguchi";
+var score = 52.3;
+// 文字列中の式展開
+Console.WriteLine($"{name} [{score}]");
+```
+- ユーザーの入力受付
+```
+ユーザーの入力を文字列で受け取る
+var score = Console.ReadLine();
+```
+- 型変更
+```
+var score = int.Parse(Console.ReadLine());
+```
+- if
+```
+// if
+var score = int.Parse(Console.ReadLine());
+  // > >= < <= == !=
+  if (score > 80) {
+  Console.WriteLine("Great!");
+  } else if (score > 60) {
+  Console.WriteLine("Good!");
+  } else {
+  Console.WriteLine("so so ...!");
+  }
+```
+- 三項演算子
+```
+Console.WriteLine((score > 80) ? "Great" : "so so ...");
+```
+- switch
+```
+// 文字列の入力受付
+var signal = Console.ReadLine();
+
+switch(signal) {
+    case "red":
+        Console.WriteLine("止まれ");
+        // 処理の終了
+        break;
+    // 条件が２つある場合（演算子でできないのか？）
+    case "blue":
+    case "green":
+        Console.WriteLine("進め");
+        break;
+    case "yellow":
+        Console.WriteLine("注意");
+        break;
+    // 上記に該当しない場合
+    default:
+        Console.WriteLine("入力ミス");
+        break;
+```
+- whileとdo while
+```
+var i = 1;
+
+while(i < 10){
+    Console.WriteLine(i);
+    i++;
+}
+---
+var i = 100;
+do {
+    Console.WriteLine(i);
+    i++;
+} while(i < 10);
+こちらはdoの処理を実行した後でwhileの条件判定を行う
+```
+- for 
+```
+for(int i = 0; i < 10; i++){
+    Console.WriteLine(i);
+}
+// continue それ以降の処理を中止して次のループへ
+// break ループ自体を抜ける
+```
+- 配列
+```
+var score = new [] {10, 20, 30};
+
+for(int i = 0; i < score.Length; i++){
+  Console.WriteLine(score[i]);
+}
+---
+foreach(int i in score){
+  Console.WriteLine(i);
+}
+```
+- メソッド
+```
+返り値を文字列で返すメソッド
+static string Sayhi() {
+	"hi";
+}
+処理が１行しかない場合はこう書ける
+static string Sayhi() => "hi";
+
+引数を持つ場合
+static void SayHi(string name, int age = 20 ) => Console.WriteLine($"hi {name} {age}");
+static void Main() {
+    SayHi("Tom", 30); // tom 30
+    SayHi("Bob"); // bob 23
+    SayHi(age: 26, name: "Steve"); // steve 26
+}
+```
+- クラスとインスタンスとクラスメソッド
+```
+
+class User {
+    public string name = "name";
+    public void SayHi() {
+        // 変数が自明の場合はthisは省略して良い
+        // Console.WriteLine($"hi {this.name}");
+        Console.WriteLine($"hi {name}");
+    }
+}
+呼び出し：
+class MyApp {
+
+  static void Main() {
+    User user = new User(); // インスタンス
+    Console.WriteLine(user.name); // me
+    user.SayHi(); // hi! me
+    user.name = "おれ";
+    user.SayHi(); // hi! taguchi
+  }
+
+}
+```
 
 # メモ
-- csファイルの実行手順
-```
-コンパイル：
-mcs ｃｓのファイル名
-実行：
-mono exeのファイル名
-```
-めんどくさい。。。
-- IDEはvisual studio
-便利
 - class名、メソッド名の頭文字は大文字にする
+- Main関数は必要
