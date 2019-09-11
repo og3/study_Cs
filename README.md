@@ -21,11 +21,22 @@ Copyright (C) 2002-2014 Novell, Inc, Xamarin Inc and Contributors. www.mono-proj
 	Suspend:       hybrid
 	GC:            sgen (concurrent by default)
 ```
-参考：https://qiita.com/matsuda_sinsuke/items/76068f4c396887459803
+参考：https://qiita.com/matsuda_sinsuke/items/76068f4c396887459803  
 
-- VScodeを入れてみる
-ファイルの実行があまりにだるいので。。
+# VScodeのインストール
+- コードの補完がないといろいろ書くC#はきつい  
+- 実行も手元でできたほうが勉強は捗る
+- VScodeとC#パッケージを入れてみる  
 参考：https://qiita.com/shuhey/items/38ce475b3c0c90862d2c
+
+# コンパイルと実行
+- コンパイル
+```
+msc .csのファイル名
+＝＞これでexeファイルが作られる
+mono .exeのファイル名
+＝＞これで結果が返ってくる
+```
 
 # 文法
 - hello world
@@ -66,16 +77,38 @@ bool flag = true;
 勝手に判断してくれるやつ（型推論）
 var i = 5; <=intと解釈してくれる
 ```
-
+- 文字列中の式展開
+```
+var name = "taguchi";
+var score = 52.3;
+// 文字列中の式展開
+Console.WriteLine($"{name} [{score}]");
+```
+- ユーザーの入力受付
+```
+ユーザーの入力を文字列で受け取る
+var score = Console.ReadLine();
+```
+- 型変更
+```
+var score = int.Parse(Console.ReadLine());
+```
+- if
+```
+// if
+var score = int.Parse(Console.ReadLine());
+  // > >= < <= == !=
+  if (score > 80) {
+  Console.WriteLine("Great!");
+  } else if (score > 60) {
+  Console.WriteLine("Good!");
+  } else {
+  Console.WriteLine("so so ...!");
+  }
+```
+- 三項演算子
+```
+Console.WriteLine((score > 80) ? "Great" : "so so ...");
+```
 # メモ
-- csファイルの実行手順
-```
-コンパイル：
-mcs ｃｓのファイル名
-実行：
-mono exeのファイル名
-```
-めんどくさい。。。
-- IDEはvisual studio
-便利
 - class名、メソッド名の頭文字は大文字にする
