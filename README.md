@@ -210,6 +210,50 @@ class MyApp {
 
 }
 ```
+- クラスの継承
+```
+- 基本
+子クラスは親クラスのメソッドを自由に使える
+コンストラクタは自動的には継承されないのでbaseを使う必要がある
+- base
+子クラスのコンストラクタに値を渡す
+- override
+子クラスのメソッドを上書きする
+- virtual
+親クラスの上書きを許可する
+```
+```
+class AdminUser :User {
+  public AdminUser(string name): base(name){
+  }
+  // 親クラスのメソッド
+  public void SayHello() {
+    Console.WriteLine($"hello {name}");
+  }
+  // UserクラスのSayHiメソッドを上書きする
+  public override void SayHi() {
+    Console.WriteLine($"[admin] hi {name}");
+  }
+}
+
+class User {
+    // 文字列型の変数を宣言
+    public string name; 
+    // コンストラクタ（initiarize)
+    public User(string name){
+        this.name = name;
+    }
+    // コンストラクタ処理に何も渡らなかったらnobodyを渡す処理
+    public User():this("nobody"){
+    }
+    // 子クラスにオーバーライドされるメソッド
+    public virtual void SayHi() {
+        // 変数が自明の場合はthisは省略して良い
+        // Console.WriteLine($"hi {this.name}");
+        Console.WriteLine($"hi {name}");
+    }
+}
+```
 
 # メモ
 - class名、メソッド名の頭文字は大文字にする
