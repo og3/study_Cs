@@ -293,6 +293,120 @@ class Prop {
     }
 }
 ```
+- インデクサ
+クラスで作成した配列を呼びだすことができる
+```
+using System;
+
+class Team {
+    // 文字列型の配列をprivateで作成
+    private string[] member = new string[3];
+    // 外からアクセス可能な変数
+    public string this[int i] {
+        // 呼び出しはこのクラスのmember変数の添字の値を返す
+        get { return this.member[i];}
+        // 書き込みはこのクラスのmember変数の添字の値にvalueを入れる
+        set { this.member[i] = value;}
+    } 
+}
+class Indexa {
+    static void Main() {
+        Team giants = new Team();
+        giants[0] = "ojison";
+        giants[1] = "その辺の人";
+        giants[2] = "おっさん";
+        Console.WriteLine(giants[2]);
+    }
+}
+* getで呼び出し方を規定しているので、この時配列は「配列名[添字]」でしか呼び出すことはできないので注意！
+```
+- static
+インスタンスを作成しなくても、staticが付いている変数やメソッドはクラスから直接呼び出すことができる
+```
+using System;
+
+class User {
+    // 数をカウントするための変数
+    private static int count = 0;
+    // コンストラクタ。Userインスタンスが作成されるごとに呼ばれるメソッド
+    // count変数はstaticが付いているのでクラス.で呼び出せる
+    public User() {
+        User.count++;
+    }
+    public static void GetCount() {
+        Console.WriteLine($"# of User instances: {count}");
+    }
+}
+
+class Static {
+    static void Main() {
+        User.GetCount(); // 0
+        User taro = new User();
+        User jiro = new User();
+        User.GetCount(); // 2
+    }
+}
+```
+- 抽象クラスと具象クラス
+抽象クラス：継承されることを前提とするクラスでインスタンスは作れない  
+具象クラス：一般的なクラス  
+```
+using System;
+
+// abstractをつけると抽象クラスになる
+abstract class User {
+    // 抽象クラスのメソッドにもabstractをつける
+    public abstract void SayHi();
+}
+
+class Japanese :User {
+    public override void SayHi() {
+        Console.WriteLine("こんにちは");
+    }
+}
+
+class American :User {
+    public override void SayHi() {
+        Console.WriteLine("hello");
+    }
+}
+
+class Abstract {
+    static void Main(){
+        Japanese jap = new Japanese();
+        jap.SayHi();
+        American ap = new American();
+        ap.SayHi();
+    }
+}
+```
+- interface
+継承したクラスに対してinterface内のメソッドを実装することを約束させるメソッド
+```
+using System;
+
+// 慣例として名前の先頭にIをつける
+interface ISharable {
+    // 抽象メソッドだが、abstractは必要ない
+    void Share();
+}
+
+// interfaceを継承する
+class User: ISharable{
+    // 抽象メソッドだがoverrideはいらない
+    public void Share() {
+        Console.WriteLine("now sharing...");
+    }
+}
+
+class Interface {
+    static void Main() {
+        User user = new User();
+        user.Share();
+    }
+}
+```
+
 # メモ
 - class名、メソッド名の頭文字は大文字にする
 - Main関数は必要
