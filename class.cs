@@ -15,7 +15,7 @@ class AdminUser :User {
     Console.WriteLine($"[admin] hi {name}");
   }
 }
-
+    
 // Class
 // - 変数（フィールド）
 // - メソッド
