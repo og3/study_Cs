@@ -406,7 +406,139 @@ class Interface {
     }
 }
 ```
+- generic
+そのメソッドに渡された値を汎用化する（例：数値を渡せばintもfloatもdoubleも型指定しなくても自動で判別してくれる）
+```
 
+// <T>は汎用化する値
+class MyData<T> {
+    // メソッド内で汎用型Tとしてxという値を設定する
+    public void GetThree(T x) {
+        for(int i = 0; i < 3; i++){
+            Console.WriteLine(x);
+        }
+    }
+}
+
+class Generic {
+    static void Main() {
+        // MyDataクラスのインスタンスを文字列型で生成する
+        MyData<string> s = new MyData<string>();
+        s.GetThree("hello generic!");
+        // double型で生成
+        MyData<double> d = new MyData<double>();
+        d.GetThree(22.2);
+    }
+}
+```
+結局は型の指定は都度都度するのでわからなくなることはないか
+- namespace
+役割：クラスをまとめるもの
+```
+// Systemというnamespaceを使うことを宣言している
+using System;
+using Orenonamespace;
+
+namespace Orenonamespace {
+    class User {
+        public void SayHi(){
+            Console.WriteLine("hi hi hi!");
+        }
+    }
+}
+
+class Namespace {
+    static void Main() {
+        // Orenonamespace.User user = new Orenonamespace.User();
+        // usingで宣言することでnamespace.の形で呼ばなくて済む
+        User user = new User();
+        user.SayHi();
+    }
+}
+```
+- 構造体
+classのようなもの  
+ただし、継承ができない
+```
+struct Point {
+    // クラスの外からは値の読み出しのみできる
+    public int X { get; }
+    public int Y { get; }
+    public Point(int x, int y){
+        X = x;
+        Y = y;
+    }
+    public void GetInfo(){
+        Console.WriteLine($"{X}:{Y}");
+    }
+}
+
+class Struct {
+    static void Main() {
+        Point p1 = new Point(5, 3);
+        Point p2 = new Point(2, 7);
+        p1.GetInfo();
+        p2.GetInfo();
+    }
+}
+```
+- 列挙型
+定数をまとめて配列のように管理する機能
+```
+enum Direction {
+    Stay = 0,
+    Left = 1,
+    Right = 2,
+}
+
+class Enum {
+    static void Main(){
+        switch(dir) {
+            case Direction.Stay:
+                Console.WriteLine("そのまま";)
+                break;
+            case Direction.Left:
+                Console.WriteLine("左へ";)
+                break;
+            case Direction.Right:
+                Console.WriteLine("右へ";)
+                break;
+        }
+    }
+}
+```
+- 例外処理
+```
+// SystemにあるExceptionを継承する
+class MyException: Exception {
+  public MyException(string msg): base(msg) {
+
+  }
+}
+
+class Ex {
+    static void Div(int a, int b) {
+        // オリジナルのエラーキャッチをする場合
+        try {
+            if (b < 0) {
+                throw new MyException("not minus");
+                } 
+            Console.WriteLine(a / b);
+        }
+        // エラーキャッチの宣言
+        catch (DivideByZeroException e) {
+            Console.WriteLine(e.Message);
+        }
+    }
+
+    static void Main() {
+        // DivideByZeroExceptionを発生させる
+        Div(10, 0);
+        // オリジナルを発生させる
+        Div(10, -3);
+    }
+}
+```
 # メモ
 - class名、メソッド名の頭文字は大文字にする
 - Main関数は必要
